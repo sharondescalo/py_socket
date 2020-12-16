@@ -33,7 +33,7 @@ def encrypt(message):
     return cipher 
 
 def main(): 
-    logging.basicConfig(filename='tcp_socket-output.log', encoding='utf-8', level=logging.DEBUG)
+    logging.basicConfig(filename='/tcp_script/tcp_socket-output.log', encoding='utf-8', level=logging.DEBUG)
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
