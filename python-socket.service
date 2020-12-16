@@ -1,12 +1,11 @@
 [Unit]
 Description=Python TCP Socket Service
 After=multi-user.target
-Conflicts=getty@tty1.service
 
 [Service]
 Type=simple
-ExecStart=python3 /etc/tcp_socket.py
-StandardInput=tty-force
+Restart=Always
+ExecStart=/usr/bin/python3 /etc/tcp_script/tcp_socket.py
 
 [Install]
 WantedBy=multi-user.target
