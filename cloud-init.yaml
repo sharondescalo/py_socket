@@ -1,0 +1,20 @@
+#cloud-config
+repo_update: true
+repo_upgrade: all
+
+packages:
+  - python3
+  - git
+
+
+# Set deamon auto start tcp event listener
+runcmd:
+  # - sudo cd /etc
+  - sudo git clone https://github.com/sharondescalo/py_socket.git tcp_script
+  - cd tcp_script
+  - sudo chmod +x tcp_socket.py
+  - sudo cp python-socket.service /lib/systemd/system/python-socket.service
+  - sudo systemctl daemon-reload
+  - sudo systemctl enable python-socket.service
+  - sudo systemctl start python-socket.service
+  

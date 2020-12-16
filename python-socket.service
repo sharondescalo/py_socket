@@ -5,7 +5,7 @@ After=multi-user.target
 [Service]
 Type=simple
 Restart=Always
-ExecStart=/usr/bin/python3 /etc/tcp_script/tcp_socket.py
+ExecStart=/usr/bin/python3 /tcp_script/tcp_socket.py
 
 [Install]
 WantedBy=multi-user.target
