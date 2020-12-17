@@ -22,8 +22,10 @@ MORSE_CODE_DICT = { 'A':'.-', 'B':'-...',
                     '(':'-.--.', ')':'-.--.-'} 
 
 def encrypt(message): 
+    logging.info('the message is "%s"',message[0])
     cipher = '' 
-    for letter in message: 
+    for letter in message[0]:
+        logging.info(letter)
         if letter != ' ': 
             cipher += MORSE_CODE_DICT[letter] + ' '
         else: 
@@ -50,6 +52,8 @@ def main():
     while True:
         logging.info('waiting for a connection-sharonde')
         connection, client_address = sock.accept()
+
+        
         try:
             logging.info('client connected: "%s"', client_address)
             while True:
@@ -57,9 +61,11 @@ def main():
                 data  = encrypt(client_address)
                 logging.info('encrypted data: "%s"', data)
                 if data:
-                    connection.sendall(data)
+                    connection.sendall(data.encode())
                 else:
-                    break
+                    continue
+        except socket.error:
+            continue
         finally:
             connection.close()
 
