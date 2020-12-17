@@ -25,7 +25,6 @@ def encrypt(message):
     logging.info('the message is "%s"',message[0])
     cipher = '' 
     for letter in message[0]:
-        logging.info(letter)
         if letter != ' ': 
             cipher += MORSE_CODE_DICT[letter] + ' '
         else: 
