@@ -3,6 +3,7 @@ import sys
 import logging
 
 
+
 # Dictionary representing the morse code chart 
 MORSE_CODE_DICT = { 'A':'.-', 'B':'-...', 
                     'C':'-.-.', 'D':'-..', 'E':'.', 
@@ -33,7 +34,8 @@ def encrypt(message):
     return cipher 
 
 def main(): 
-    logging.basicConfig(filename='/tcp_script/tcp_socket-output.log', encoding='utf-8', level=logging.DEBUG)
+    logging.info('Main')
+
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -41,23 +43,19 @@ def main():
     server_name = socket.gethostname()
     server_address = (server_name, 10000)
     logging.info('Started')
-    logging.info(sys.stderr, 'starting up on %s port %s' % server_address)
-    # print >>sys.stderr, 'starting up on %s port %s' % server_address
+    logging.info('starting up on "%s"', server_address)
     sock.bind(server_address)
     sock.listen(1)
 
     while True:
-        logging.info('waiting for a connection')
-        print >>sys.stderr, 'waiting for a connection'
+        logging.info('waiting for a connection-sharonde')
         connection, client_address = sock.accept()
         try:
             logging.info('client connected: "%s"', client_address)
-            print >>sys.stderr, 'client connected:', client_address
             while True:
                 # data = connection.recv(16)
                 data  = encrypt(client_address)
                 logging.info('encrypted data: "%s"', data)
-                # print >>sys.stderr, 'received "%s"' % data
                 if data:
                     connection.sendall(data)
                 else:
@@ -66,5 +64,12 @@ def main():
             connection.close()
 
 # Executes the main function 
-if __name__ == '__main__': 
+if __name__ == '__main__':
+    # logging.basicConfig(filename='/tcp_script/tcp_socket-output.log', filemode='w',encoding='utf-8', level=logging.DEBUG)
+    root_logger= logging.getLogger()
+    root_logger.setLevel(logging.DEBUG)
+    handler = logging.FileHandler('/tcp_script/tcp_socket-output.log', 'w', 'utf-8')
+    formatter = logging.Formatter('%(name)s %(message)s')
+    handler.setFormatter(formatter)
+    root_logger.addHandler(handler)
     main()
