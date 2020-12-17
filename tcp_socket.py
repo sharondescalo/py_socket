@@ -22,7 +22,6 @@ MORSE_CODE_DICT = { 'A':'.-', 'B':'-...',
                     '(':'-.--.', ')':'-.--.-'} 
 
 def encrypt(message): 
-    logging.info('the message is "%s"',message[0])
     cipher = '' 
     for letter in message[0]:
         if letter != ' ': 
